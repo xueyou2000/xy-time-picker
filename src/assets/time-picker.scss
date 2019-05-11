@@ -1,0 +1,70 @@
+$TimePicker: "xy-time-picker";
+$TimePickerTrigger: "#{$TimePicker}-trigger";
+$PickerCombobox: "xy-picker-combobox";
+$PickerPanel: "xy-time-picker-panel";
+
+.#{$TimePicker} {
+    position: absolute;
+    left: -100%;
+    top: -100%;
+    animation: 0.3s slideUpOut;
+    transform-origin: center top;
+    z-index: 100;
+
+    &.#{$TimePicker}-state-exited {
+        display: none;
+    }
+}
+.#{$TimePicker}-open {
+    animation: 0.3s slideUpIn;
+}
+.#{$TimePicker}.#{$TimePicker}-topLeft {
+    .#{$PickerPanel} {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .#{$PickerPanel}-input-wrap {
+        border-top: 1px solid #e8e8e8;
+    }
+}
+.#{$TimePicker}-icon {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.25);
+
+    &:hover {
+        color: rgba(0, 0, 0, 0.65);
+    }
+}
+.#{$TimePickerTrigger} {
+    width: 131px;
+}
+.#{$TimePickerTrigger}-state-entering,
+.#{$TimePickerTrigger}-state-entered {
+    .xy-input {
+        pointer-events: none;
+    }
+}
+
+@keyframes slideUpIn {
+    0% {
+        transform: scaleY(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpOut {
+    0% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(0.8);
+        opacity: 0;
+    }
+}

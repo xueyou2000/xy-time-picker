@@ -1,0 +1,69 @@
+{
+    "name": "xy-time-picker",
+    "version": "0.0.2",
+    "description": "基于 React Hooks 的时间选择器组件",
+    "types": "es/index.d.ts",
+    "main": "es/index.js",
+    "module": "es/index.js",
+    "publisher": "XueYou",
+    "license": "MIT",
+    "sideEffects": [
+        "*.css",
+        "*.scss"
+    ],
+    "files": [
+        "es",
+        "dist",
+        "assets"
+    ],
+    "scripts": {
+        "test": "quick-react-scripts test",
+        "build": "quick-react-scripts build",
+        "start": "xy-manual-tools start -p 6006",
+        "build:demo": "xy-manual-tools build",
+        "_publish": "yarn run test && yarn run build && npm publish"
+    },
+    "keywords": [
+        "react",
+        "react-component",
+        "xy-time-picker"
+    ],
+    "author": {
+        "name": "XueYou",
+        "email": "xueyoucd@gmail.com"
+    },
+    "publishConfig": {
+        "registry": "http://registry.npmjs.org/"
+    },
+    "devDependencies": {
+        "@types/classnames": "^2.2.7",
+        "@types/jest": "24.0.6",
+        "@types/node": "11.9.4",
+        "@types/react": "16.8.2",
+        "@types/react-dom": "16.8.2",
+        "quick-react-scripts": "1.1.8",
+        "react-testing-library": "^6.0.0",
+        "xy-button": "^1.0.1",
+        "xy-manual-tools": "0.1.4"
+    },
+    "dependencies": {
+        "@fortawesome/free-regular-svg-icons": "^5.8.2",
+        "@fortawesome/free-solid-svg-icons": "^5.8.2",
+        "@fortawesome/react-fontawesome": "^0.1.4",
+        "classnames": "^2.2.6",
+        "react": "^16.8.2",
+        "react-dom": "^16.8.2",
+        "utils-hooks": "0.0.69",
+        "xy-input": "0.0.9",
+        "xy-trigger": "0.0.72"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xueyou2000/xy-time-picker.git"
+    },
+    "jest": {
+        "transformIgnorePatterns": [
+            "<rootDir>/node_modules/(?!(utils-hooks|utils-dom|xy-input|xy-trigger))"
+        ]
+    }
+}

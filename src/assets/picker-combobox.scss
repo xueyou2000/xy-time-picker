@@ -1,0 +1,37 @@
+$PickerCombobox: "xy-picker-combobox";
+$PickerNumber: "xy-picker-number";
+
+.#{$PickerCombobox} {
+    zoom: 1;
+    font-size: 14px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 168px;
+
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    .#{$PickerNumber} {
+        width: 33.33%;
+    }
+}
+
+.#{$PickerCombobox}:not(.#{$PickerCombobox}-show-second):not(.#{$PickerCombobox}-show-hour-system) {
+    .#{$PickerNumber} {
+        width: 50%;
+    }
+}
+.#{$PickerCombobox}.#{$PickerCombobox}-show-hour-system.#{$PickerCombobox}-show-second {
+    width: 224px;
+    .#{$PickerNumber} {
+        width: 25%;
+    }
+}
