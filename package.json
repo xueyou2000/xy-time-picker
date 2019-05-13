@@ -1,6 +1,6 @@
 {
     "name": "xy-time-picker",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "基于 React Hooks 的时间选择器组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -41,7 +41,7 @@
         "@types/node": "11.9.4",
         "@types/react": "16.8.2",
         "@types/react-dom": "16.8.2",
-        "quick-react-scripts": "1.1.8",
+        "quick-react-scripts": "1.1.9",
         "react-testing-library": "^6.0.0",
         "xy-button": "^1.0.1",
         "xy-manual-tools": "0.1.4"
@@ -53,9 +53,9 @@
         "classnames": "^2.2.6",
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
-        "utils-hooks": "0.0.69",
-        "xy-input": "0.0.9",
-        "xy-trigger": "0.0.72"
+        "utils-hooks": "0.0.71",
+        "xy-input": "0.0.91",
+        "xy-trigger": "0.0.94"
     },
     "repository": {
         "type": "git",

@@ -44,7 +44,7 @@ export function TimePickerPanel(props: TimePickerPanelProps) {
                 onBlur(event);
             }
         },
-        [lastRef.current],
+        [lastRef.current]
     );
 
     const changeHandle = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
@@ -73,10 +73,24 @@ export function TimePickerPanel(props: TimePickerPanelProps) {
         }
     }
 
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+        switch (event.keyCode) {
+            // Enter 确定
+            case 13:
+                blurHandle(event as any);
+                event.stopPropagation();
+                break;
+        }
+
+        if (onKeyDown) {
+            onKeyDown(event);
+        }
+    }, []);
+
     return (
         <div className={classNames(prefixCls, className)} style={style}>
             <div className={`${prefixCls}-input-wrap`}>
-                <input type="text" ref={inputRef} value={showInputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={onKeyDown} onChange={changeHandle} />
+                <input type="text" ref={inputRef} value={showInputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
             </div>
             <PickerCombobox {...rest} value={timeValue} onPicker={pickerHandle} hourSystem={hourSystem} onHourSystemChange={hourSystemChange} />
             {addon && <div className={`${prefixCls}-footer`}>{addon}</div>}
