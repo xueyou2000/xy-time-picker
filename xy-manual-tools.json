@@ -23,5 +23,10 @@
         "name": "HourSystem",
         "title": "小时制",
         "desc": "选择12小时制，还是24小时制"
+    },
+    {
+        "name": "TimeRange",
+        "title": "时间范围选择",
+        "desc": "通用的时间范围选择, 不支持改变小时制"
     }
 ]

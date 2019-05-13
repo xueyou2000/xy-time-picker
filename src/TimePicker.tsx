@@ -14,7 +14,7 @@ const ACTION: TriggerAction[] = [];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
 export function TimePicker(props: TimePickerProps) {
-    const { prefixCls = "xy-time-picker", className, style, onHourSystemChange, onVisibleChange, onChange, disabled, onBlur, placeholder = "请先择时间", ...rest } = props;
+    const { prefixCls = "xy-time-picker", className, style, onHourSystemChange, onVisibleChange, renderTimePickerPanel = TimePickerPanel, onChange, disabled, onBlur, placeholder = "请先择时间", ...rest } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
     const hourSystemRef = useRef(0);
@@ -56,13 +56,6 @@ export function TimePicker(props: TimePickerProps) {
         changeVisible(true);
     }, []);
 
-    const blurHandle = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-        changeVisible(false);
-        if (onBlur) {
-            onBlur(e);
-        }
-    }, []);
-
     const focus = useCallback(
         (trigger: HTMLElement, popup: HTMLElement) => {
             popup.style.display = "block";
@@ -72,22 +65,17 @@ export function TimePicker(props: TimePickerProps) {
             }
             popup.style.display = null;
         },
-        [inputRef.current],
+        [inputRef.current]
     );
 
+    function renderPopup() {
+        return React.createElement(renderTimePickerPanel, { ...rest, disabled, placeholder, onBlur, inputRef, value: inputValue, onChange: changeValue, onHourSystemChange: hourSystemChangeHandle });
+    }
+
     return (
-        <Trigger
-            prefixCls={prefixCls}
-            onAlign={focus}
-            action={ACTION}
-            visible={visible}
-            onChange={changeVisible}
-            offsetSize={0}
-            popupAlign={POPUPALIGN}
-            placement="bottomLeft"
-            popup={<TimePickerPanel {...rest} disabled={disabled} placeholder={placeholder} onBlur={blurHandle} inputRef={inputRef} value={inputValue} onChange={changeValue} onHourSystemChange={hourSystemChangeHandle} />}
-        >
+        <Trigger prefixCls={prefixCls} onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
             <Input
+                className={className}
                 placeholder={placeholder}
                 onFocus={focusHandle}
                 value={value}

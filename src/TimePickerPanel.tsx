@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { DefineDefaultValue, useControll } from "utils-hooks";
 import { isTime } from "./date";
 import { TimePickerPanelProps } from "./interface";
-import { PickerCombobox } from "./PickerCombobox";
+import PickerCombobox from "./PickerCombobox";
 
 export function TimePickerPanel(props: TimePickerPanelProps) {
     const { prefixCls = "xy-time-picker-panel", className, style, placeholder = "请先择时间", onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, ...rest } = props;

@@ -38,6 +38,11 @@ export interface TimePickerProps extends TimePickerPanelProps {
      * 改变事件
      */
     onVisibleChange?: (visible: boolean) => void;
+    /**
+     * 自定义渲染时间面板内容
+     * @description 仅用于时间范围组件
+     */
+    renderTimePickerPanel?: (props: TimePickerPanelProps) => JSX.Element;
 }
 
 export interface TimePickerPanelProps extends PickerComboboxProps, InputGenericProps {
@@ -61,6 +66,14 @@ export interface TimePickerPanelProps extends PickerComboboxProps, InputGenericP
      * 底部附加内容
      */
     addon?: React.ReactNode;
+}
+
+export interface TimeRangePickerPanelProps extends TimePickerPanelProps {
+    /**
+     * 分隔符
+     * @description 默认 " - "
+     */
+    separator?: string;
 }
 
 export interface PickerComboboxProps {

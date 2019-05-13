@@ -12,7 +12,7 @@ export function PickerCombobox(props: PickerComboboxProps) {
     const showSecond = format === "HH:mm:ss";
     const classString = classNames(prefixCls, className, {
         [`${prefixCls}-show-second`]: showSecond,
-        [`${prefixCls}-show-hour-system`]: showHourSystem,
+        [`${prefixCls}-show-hour-system`]: showHourSystem
     });
     const [value, setValue, isControll] = useControll<string>(props, "value", "defaultValue");
     // 0=24小时制AM, 1=12小时制PM
@@ -45,27 +45,24 @@ export function PickerCombobox(props: PickerComboboxProps) {
             }
             return false;
         },
-        [disabledHours, disabledMinutes, disabledSeconds],
+        [disabledHours, disabledMinutes, disabledSeconds]
     );
 
-    const changeHandle = useCallback(
-        (num: number, type: PickerNumberType) => {
-            const d = dateRef.current;
-            switch (type) {
-                case "hour":
-                    d.setHours(num);
-                    break;
-                case "minute":
-                    d.setMinutes(num);
-                    break;
-                case "second":
-                    d.setSeconds(num);
-                    break;
-            }
-            changeValue();
-        },
-        [hourSystem],
-    );
+    function changeHandle(num: number, type: PickerNumberType) {
+        const d = dateRef.current;
+        switch (type) {
+            case "hour":
+                d.setHours(num);
+                break;
+            case "minute":
+                d.setMinutes(num);
+                break;
+            case "second":
+                d.setSeconds(num);
+                break;
+        }
+        changeValue();
+    }
 
     const changeHourSystem = useCallback(
         (num: number) => {
@@ -81,7 +78,7 @@ export function PickerCombobox(props: PickerComboboxProps) {
                 onHourSystemChange(num);
             }
         },
-        [hour],
+        [hour]
     );
 
     return (
