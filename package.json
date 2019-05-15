@@ -1,6 +1,6 @@
 {
     "name": "xy-time-picker",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "基于 React Hooks 的时间选择器组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",

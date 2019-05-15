@@ -27,7 +27,15 @@ $PickerPanel: "xy-time-picker-panel";
         border-top: 1px solid #e8e8e8;
     }
 }
+
 .#{$TimePicker}-icon {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: text;
+}
+.#{$TimePicker}-icon:not(.has-value) {
+    pointer-events: none;
+}
+.#{$TimePicker}-icon.has-value {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.25);
 

@@ -9,6 +9,7 @@ import Trigger from "xy-trigger";
 import "xy-trigger/assets/index.css";
 import { TimePickerProps } from "./interface";
 import TimePickerPanel from "./TimePickerPanel";
+import classNames from "classnames";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
@@ -19,6 +20,7 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
     const hourSystemRef = useRef(0);
     const inputRef = useRef(null);
+    const cleanBtnRef = useRef(null);
     const value = inputValue && props.showHourSystem ? `${inputValue} ${hourSystemRef.current === 0 ? "上午" : "下午"}` : inputValue;
 
     const hourSystemChangeHandle = useCallback((sys: number) => {
@@ -37,7 +39,12 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
         }
     }, []);
 
-    const changeVisible = useCallback((show: boolean) => {
+    const changeVisible = useCallback((show: boolean, event?: MouseEvent) => {
+        const cleanBtn = cleanBtnRef.current as HTMLElement;
+        const target = event && (event.target as HTMLElement);
+        if (cleanBtn && target && (cleanBtn === target || cleanBtn.contains(target))) {
+            return;
+        }
         if (!isVisibleControll) {
             setVisible(show);
         }
@@ -77,7 +84,7 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
                 value={value}
                 disabled={disabled}
                 suffix={
-                    <span className={`${prefixCls}-icon`} onClick={cleanHandle}>
+                    <span ref={cleanBtnRef} className={classNames(`${prefixCls}-icon`, { "has-value": !!inputValue })} onClick={cleanHandle}>
                         <FontAwesomeIcon icon={inputValue ? faTimesCircle : faClock} />
                     </span>
                 }
