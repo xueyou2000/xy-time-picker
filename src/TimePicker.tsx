@@ -10,10 +10,10 @@ import "xy-trigger/assets/index.css";
 import { TimePickerProps } from "./interface";
 import TimePickerPanel from "./TimePickerPanel";
 
-const ACTION: TriggerAction[] = [];
+const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
-export function TimePicker(props: TimePickerProps) {
+export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.MutableRefObject<any>) => {
     const { prefixCls = "xy-time-picker", className, style, onHourSystemChange, onVisibleChange, renderTimePickerPanel = TimePickerPanel, onChange, disabled, onBlur, placeholder = "请先择时间", ...rest } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
@@ -52,10 +52,6 @@ export function TimePicker(props: TimePickerProps) {
         }
     }
 
-    const focusHandle = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-        changeVisible(true);
-    }, []);
-
     const focus = useCallback(
         (trigger: HTMLElement, popup: HTMLElement) => {
             popup.style.display = "block";
@@ -75,9 +71,9 @@ export function TimePicker(props: TimePickerProps) {
     return (
         <Trigger prefixCls={prefixCls} onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
             <Input
+                ref={ref}
                 className={className}
                 placeholder={placeholder}
-                onFocus={focusHandle}
                 value={value}
                 disabled={disabled}
                 suffix={
@@ -88,6 +84,6 @@ export function TimePicker(props: TimePickerProps) {
             />
         </Trigger>
     );
-}
+});
 
 export default React.memo(TimePicker);

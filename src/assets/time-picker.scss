@@ -38,12 +38,6 @@ $PickerPanel: "xy-time-picker-panel";
 .#{$TimePickerTrigger} {
     width: 131px;
 }
-.#{$TimePickerTrigger}-state-entering,
-.#{$TimePickerTrigger}-state-entered {
-    .xy-input {
-        pointer-events: none;
-    }
-}
 
 @keyframes slideUpIn {
     0% {
