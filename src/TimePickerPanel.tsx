@@ -6,7 +6,7 @@ import { TimePickerPanelProps } from "./interface";
 import PickerCombobox from "./PickerCombobox";
 
 export function TimePickerPanel(props: TimePickerPanelProps) {
-    const { prefixCls = "xy-time-picker-panel", className, style, placeholder = "请先择时间", onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, ...rest } = props;
+    const { prefixCls = "xy-time-picker-panel", className, style, placeholder = "请先择时间", onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, onConfirm, ...rest } = props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState(isTime(valueProps) ? valueProps : "");
     // 0=24小时制AM, 1=12小时制PM
@@ -78,6 +78,9 @@ export function TimePickerPanel(props: TimePickerPanelProps) {
             // Enter 确定
             case 13:
                 blurHandle(event as any);
+                if (onConfirm) {
+                    onConfirm();
+                }
                 event.stopPropagation();
                 break;
         }

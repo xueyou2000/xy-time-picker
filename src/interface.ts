@@ -66,6 +66,10 @@ export interface TimePickerPanelProps extends PickerComboboxProps, InputGenericP
      * 底部附加内容
      */
     addon?: React.ReactNode;
+    /**
+     * 确定事件, 用于收起面板
+     */
+    onConfirm?: Function;
 }
 
 export interface TimeRangePickerPanelProps extends TimePickerPanelProps {

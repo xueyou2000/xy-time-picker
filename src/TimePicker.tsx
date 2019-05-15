@@ -59,6 +59,10 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
         }
     }
 
+    const hide = useCallback(() => {
+        changeVisible(false);
+    }, []);
+
     const focus = useCallback(
         (trigger: HTMLElement, popup: HTMLElement) => {
             popup.style.display = "block";
@@ -72,7 +76,7 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
     );
 
     function renderPopup() {
-        return React.createElement(renderTimePickerPanel, { ...rest, disabled, placeholder, onBlur, inputRef, value: inputValue, onChange: changeValue, onHourSystemChange: hourSystemChangeHandle });
+        return React.createElement(renderTimePickerPanel, { ...rest, disabled, placeholder, onBlur, inputRef, value: inputValue, onConfirm: hide, onChange: changeValue, onHourSystemChange: hourSystemChangeHandle });
     }
 
     return (
