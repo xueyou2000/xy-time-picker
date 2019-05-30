@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.62 (Thu May 30 2019)
+
+-   剥离`date`工具函数到`utils-dom`外部库中
+
 ## 0.0.61 (Wed May 15 2019)
 
 -   增加`onConfirm`属性

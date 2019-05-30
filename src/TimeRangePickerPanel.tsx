@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { DefineDefaultValue, useControll } from "utils-hooks";
-import { isTime, isTimeRange, timeRangeSplit } from "./date";
+import { isTime, isTimeRange, timeRangeSplit } from "utils-dom";
 import { TimeRangePickerPanelProps } from "./interface";
 import PickerCombobox from "./PickerCombobox";
 
