@@ -28,7 +28,7 @@ export function PickerNumber(props: PickerNumberProps) {
     }
 
     useEffect(() => {
-        scrollToSelected(300);
+        scrollToSelected(200);
     }, [value, use12Hours]);
 
     function selectHandle(number: number) {

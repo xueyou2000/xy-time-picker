@@ -16,7 +16,7 @@
 
 ```bash
 # yarn
-yarn add xy-time-picker classnames utils-hooks utils-dom @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome xy-trigger xy-input
+yarn add xy-time-picker
 ```
 
 ## 使用例子
