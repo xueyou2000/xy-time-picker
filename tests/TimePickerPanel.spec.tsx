@@ -5,7 +5,7 @@ import { TimePickerPanel } from "../src";
 describe("TimePickerPanel", () => {
     test("render", () => {
         const wrapper = render(<TimePickerPanel />);
-        const input = wrapper.getByPlaceholderText("请先择时间") as HTMLInputElement;
+        const input = wrapper.getByPlaceholderText("请选择时间") as HTMLInputElement;
         expect(input.value).toBe("");
 
         const minuteOption = wrapper.container.querySelectorAll(".xy-picker-number:nth-child(2) li");

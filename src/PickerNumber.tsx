@@ -48,7 +48,9 @@ export function PickerNumber(props: PickerNumberProps) {
             index = 0;
         }
         const option = list.children[index] as HTMLElement;
-        scrollTo(select, option.offsetTop, duration);
+        if (option) {
+            scrollTo(select, option.offsetTop, duration);
+        }
     }
 
     return (

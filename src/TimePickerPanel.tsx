@@ -1,12 +1,13 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { DefineDefaultValue, useControll } from "utils-hooks";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { isTime } from "utils-dom";
+import { DefineDefaultValue, useControll } from "utils-hooks";
 import { TimePickerPanelProps } from "./interface";
+import { getLocal } from "./local";
 import PickerCombobox from "./PickerCombobox";
 
 export function TimePickerPanel(props: TimePickerPanelProps) {
-    const { prefixCls = "xy-time-picker-panel", className, style, placeholder = "请先择时间", onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, onConfirm, ...rest } = props;
+    const { prefixCls = "xy-time-picker-panel", className, style, placeholder = getLocal().TimePicker.placeholder, onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, onConfirm, ...rest } = props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState(isTime(valueProps) ? valueProps : "");
     // 0=24小时制AM, 1=12小时制PM
@@ -15,7 +16,7 @@ export function TimePickerPanel(props: TimePickerPanelProps) {
     // 记录最后一次输入正确的时间字符串
     const lastRef = useRef(inputValue);
     const timeValue = isTime(inputValue) || !inputValue ? inputValue : lastRef.current;
-    const showInputValue = inputValue && props.showHourSystem ? `${inputValue} ${hourSystem === 0 ? "上午" : "下午"}` : inputValue;
+    const showInputValue = inputValue && props.showHourSystem ? `${inputValue} ${hourSystem === 0 ? getLocal().TimePicker.AM : getLocal().TimePicker.PM}` : inputValue;
 
     // 受控时候由外部更新输入框的值
     useEffect(() => {
@@ -38,18 +39,20 @@ export function TimePickerPanel(props: TimePickerPanelProps) {
     const blurHandle = useCallback(
         (event: React.FocusEvent<HTMLInputElement>) => {
             let val = event.target.value;
-            val = val.replace(/\s(上午|下午)/, "");
+            const patten = new RegExp(`\s(${getLocal().TimePicker.AM}|${getLocal().TimePicker.PM})`);
+            val = val.replace(patten, "");
             changeValue(val);
             if (onBlur) {
                 onBlur(event);
             }
         },
-        [lastRef.current]
+        [lastRef.current],
     );
 
     const changeHandle = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
         let val = event.target.value;
-        val = val.replace(/\s(上午|下午)/, "");
+        const patten = new RegExp(`\s(${getLocal().TimePicker.AM}|${getLocal().TimePicker.PM})`);
+        val = val.replace(patten, "");
 
         if (isTime(val)) {
             lastRef.current = val;

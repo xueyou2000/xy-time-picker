@@ -1,6 +1,7 @@
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classNames from "classnames";
 import React, { useCallback, useRef } from "react";
 import { TriggerAction, useControll } from "utils-hooks";
 import { Input } from "xy-input";
@@ -8,20 +9,20 @@ import "xy-input/assets/index.css";
 import Trigger from "xy-trigger";
 import "xy-trigger/assets/index.css";
 import { TimePickerProps } from "./interface";
+import { getLocal } from "./local";
 import TimePickerPanel from "./TimePickerPanel";
-import classNames from "classnames";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
 export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-time-picker", className, style, onHourSystemChange, onVisibleChange, renderTimePickerPanel = TimePickerPanel, onChange, disabled, onBlur, placeholder = "请先择时间", ...rest } = props;
+    const { prefixCls = "xy-time-picker", className, style, onHourSystemChange, onVisibleChange, renderTimePickerPanel = TimePickerPanel, onChange, disabled, onBlur, placeholder = getLocal().TimePicker.placeholder, ...rest } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
     const hourSystemRef = useRef(0);
     const inputRef = useRef(null);
     const cleanBtnRef = useRef(null);
-    const value = inputValue && props.showHourSystem ? `${inputValue} ${hourSystemRef.current === 0 ? "上午" : "下午"}` : inputValue;
+    const value = inputValue && props.showHourSystem ? `${inputValue} ${hourSystemRef.current === 0 ? getLocal().TimePicker.AM : getLocal().TimePicker.PM}` : inputValue;
 
     const hourSystemChangeHandle = useCallback((sys: number) => {
         hourSystemRef.current = sys;
@@ -72,7 +73,7 @@ export const TimePicker = React.forwardRef((props: TimePickerProps, ref: React.M
             }
             popup.style.display = null;
         },
-        [inputRef.current]
+        [inputRef.current],
     );
 
     function renderPopup() {

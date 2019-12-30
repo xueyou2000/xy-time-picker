@@ -1,12 +1,29 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { DefineDefaultValue, useControll } from "utils-hooks";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { isTime, isTimeRange, timeRangeSplit } from "utils-dom";
+import { DefineDefaultValue } from "utils-hooks";
 import { TimeRangePickerPanelProps } from "./interface";
+import { getLocal } from "./local";
 import PickerCombobox from "./PickerCombobox";
 
 export function TimeRangePickerPanel(props: TimeRangePickerPanelProps) {
-    const { prefixCls = "xy-time-range-picker-panel", className, style, placeholder = "请先择时间", separator = " - ", onHourSystemChange, inputRef, addon, onFocus, onBlur, onKeyDown, onChange, onPicker, disabled, ...rest } = props;
+    const {
+        prefixCls = "xy-time-range-picker-panel",
+        className,
+        style,
+        placeholder = getLocal().TimePicker.placeholder,
+        separator = " - ",
+        onHourSystemChange,
+        inputRef,
+        addon,
+        onFocus,
+        onBlur,
+        onKeyDown,
+        onChange,
+        onPicker,
+        disabled,
+        ...rest
+    } = props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState(isTimeRange(valueProps, separator) ? valueProps : "");
 
@@ -37,18 +54,20 @@ export function TimeRangePickerPanel(props: TimeRangePickerPanelProps) {
     const blurHandle = useCallback(
         (event: React.FocusEvent<HTMLInputElement>) => {
             let val = event.target.value;
-            val = val.replace(/\s(上午|下午)/, "");
+            const patten = new RegExp(`\s(${getLocal().TimePicker.AM}|${getLocal().TimePicker.PM})`);
+            val = val.replace(patten, "");
             changeValue(val);
             if (onBlur) {
                 onBlur(event);
             }
         },
-        [lastRef.current]
+        [lastRef.current],
     );
 
     const changeHandle = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
         let val = event.target.value;
-        val = val.replace(/\s(上午|下午)/, "");
+        const patten = new RegExp(`\s(${getLocal().TimePicker.AM}|${getLocal().TimePicker.PM})`);
+        val = val.replace(patten, "");
 
         if (isTime(val)) {
             lastRef.current = val;
@@ -105,11 +124,11 @@ export function TimeRangePickerPanel(props: TimeRangePickerPanelProps) {
             </div>
             <div className={`${prefixCls}__inner`}>
                 <div className={`${prefixCls}__content_left`}>
-                    <div className={`${prefixCls}__content_header`}>开始时间</div>
+                    <div className={`${prefixCls}__content_header`}>{getLocal().TimePicker.start}</div>
                     <PickerCombobox {...rest} value={startTime} onPicker={startPickerHandle} showHourSystem={false} />
                 </div>
                 <div className={`${prefixCls}__content_right`}>
-                    <div className={`${prefixCls}__content_header`}>结束时间</div>
+                    <div className={`${prefixCls}__content_header`}>{getLocal().TimePicker.end}</div>
                     <PickerCombobox {...rest} value={endTime} onPicker={endPickerHandle} showHourSystem={false} />
                 </div>
             </div>
